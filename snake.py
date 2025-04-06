@@ -5,7 +5,7 @@ import os
 
 load_dotenv()
 
-CELL_SIZE = int(os.getenv("CELL_SIZE", 20))
+CELL_SIZE = int(os.getenv("CELL_SIZE", 15))
 
 
 class Snake:

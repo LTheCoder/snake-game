@@ -4,11 +4,12 @@ import sys
 from snake import Snake
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
-CELL_SIZE = int(os.getenv("CELL_SIZE", 20))
-GRID_WIDTH = int(os.getenv("GRID_WIDTH", 30))
-GRID_HEIGHT = int(os.getenv("GRID_HEIGHT", 20))
+CELL_SIZE = int(os.getenv("CELL_SIZE", 15))
+GRID_WIDTH = int(os.getenv("GRID_WIDTH", 40))
+GRID_HEIGHT = int(os.getenv("GRID_HEIGHT", 30))
 
 
 WINDOW_WIDTH = GRID_WIDTH * CELL_SIZE

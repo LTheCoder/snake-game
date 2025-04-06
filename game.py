@@ -1,11 +1,19 @@
+import os
 import pygame
 import sys
-from snake import Snake 
+from snake import Snake
+from dotenv import load_dotenv
 
-GRID_SIZE = 50, 30 
-CELL_SIZE = 15
-WINDOW_WIDTH = GRID_SIZE[0] * CELL_SIZE
-WINDOW_HEIGHT = GRID_SIZE[1] * CELL_SIZE
+load_dotenv()
+
+CELL_SIZE = int(os.getenv("CELL_SIZE", 20))
+GRID_WIDTH = int(os.getenv("GRID_WIDTH", 30))
+GRID_HEIGHT = int(os.getenv("GRID_HEIGHT", 20))
+
+
+WINDOW_WIDTH = GRID_WIDTH * CELL_SIZE
+WINDOW_HEIGHT = GRID_HEIGHT * CELL_SIZE
+
 
 class SnakeGame:
     def __init__(self):
@@ -13,18 +21,18 @@ class SnakeGame:
         self.window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Snake Game")
         self.clock = pygame.time.Clock()
-        grid_center = (GRID_SIZE[0] // 2, GRID_SIZE[1] // 2)
+        grid_center = (GRID_WIDTH // 2, GRID_HEIGHT // 2)
         self.snake = Snake(grid_center)
 
     def draw_board(self):
-        colors = [(170, 215, 81), (162, 209, 73)] 
-        for row in range(GRID_SIZE[1]):
-            for col in range(GRID_SIZE[0]):
+        colors = [(170, 215, 81), (162, 209, 73)]
+        for row in range(GRID_HEIGHT):
+            for col in range(GRID_WIDTH):
                 color = colors[(row + col) % 2]
-                rect = pygame.Rect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+                rect = pygame.Rect(col * CELL_SIZE, row *
+                                   CELL_SIZE, CELL_SIZE, CELL_SIZE)
                 pygame.draw.rect(self.window, color, rect)
 
-    
     def run(self):
         while True:
             for event in pygame.event.get():

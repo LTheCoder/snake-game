@@ -1,7 +1,11 @@
 import pygame
+from dotenv import load_dotenv
+import os
 
 
-CELL_SIZE = 20
+load_dotenv()
+
+CELL_SIZE = int(os.getenv("CELL_SIZE", 20))
 
 
 class Snake:

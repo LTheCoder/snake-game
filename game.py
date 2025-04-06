@@ -10,7 +10,7 @@ load_dotenv()
 CELL_SIZE = int(os.getenv("CELL_SIZE", 15))
 GRID_WIDTH = int(os.getenv("GRID_WIDTH", 40))
 GRID_HEIGHT = int(os.getenv("GRID_HEIGHT", 30))
-MOVE_INTERVAL = int(os.getenv("MOVE_INTERVAL", 60))
+FRAMERATE = int(os.getenv("FRAMERATE", 60))
 SNAKE_SPEED = int(os.getenv("SNAKE_SPEED_MS", 100))
 
 WINDOW_WIDTH = GRID_WIDTH * CELL_SIZE
@@ -57,9 +57,9 @@ class SnakeGame:
                 self.snake.last_move_time = now
 
             interpolation = min(
-                (now - self.snake.last_move_time) / MOVE_INTERVAL, 1.0)
+                (now - self.snake.last_move_time) / FRAMERATE, 1.0)
 
             self.draw_board()
             self.snake.draw(self.window, interpolation)
             pygame.display.flip()
-            self.clock.tick(MOVE_INTERVAL)
+            self.clock.tick(FRAMERATE)

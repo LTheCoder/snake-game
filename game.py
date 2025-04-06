@@ -52,12 +52,12 @@ class SnakeGame:
                     elif event.key == pygame.K_RIGHT:
                         self.snake.change_direction(pygame.Vector2(1, 0))
 
-            interpolation = min(
-                (now - self.snake.last_move_time) / MOVE_INTERVAL, 1.0)
-
             if now - self.snake.last_move_time >= SNAKE_SPEED:
                 self.snake.update()
                 self.snake.last_move_time = now
+
+            interpolation = min(
+                (now - self.snake.last_move_time) / MOVE_INTERVAL, 1.0)
 
             self.draw_board()
             self.snake.draw(self.window, interpolation)

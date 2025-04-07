@@ -155,23 +155,23 @@ class SnakeGame:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if self.state == "MENU" and event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                if self.state == GameStatus.MENU and event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     self.reset_game()
-                    self.state = "PLAYING"
-                elif self.state == "GAME_OVER" and event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+                    self.state = GameStatus.PLAYING
+                elif self.state == GameStatus.GAME_OVER and event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                     self.reset_game()
-                    self.state = "PLAYING"
-                elif self.state == "GAME_OVER" and event.type == pygame.KEYDOWN and event.key == pygame.K_m:
+                    self.state = GameStatus.PLAYING
+                elif self.state == GameStatus.GAME_OVER and event.type == pygame.KEYDOWN and event.key == pygame.K_m:
                     self.reset_game()
-                    self.state = "MENU"
-                elif self.state == "PLAYING":
+                    self.state = GameStatus.MENU
+                elif self.state == GameStatus.PLAYING:
                     self.snake.handle_input(event)
 
-            if self.state == "PLAYING":
+            if self.state == GameStatus.PLAYING:
                 self.update_game()
-            elif self.state == "MENU":
+            elif self.state == GameStatus.MENU:
                 self.draw_menu()
-            elif self.state == "GAME_OVER":
+            elif self.state == GameStatus.GAME_OVER:
                 self.draw_game_over()
 
             pygame.display.flip()

@@ -57,7 +57,7 @@ class SnakeGame:
                 self.snake.last_move_time = now
 
             interpolation = min(
-                (now - self.snake.last_move_time) / FRAMERATE, 1.0)
+                (now - self.snake.last_move_time) / SNAKE_SPEED, 1.0)
 
             self.draw_board()
             self.snake.draw(self.window, interpolation)

@@ -15,7 +15,6 @@ class Snake:
         self.previous_body = list(self.body)
         self.direction = pygame.Vector2(1, 0)
         self.color = (0, 255, 0)
-        self.grow = False
         self.grow_segments = 0
 
     def set_grow(self, segments=1):

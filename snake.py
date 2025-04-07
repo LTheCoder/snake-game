@@ -30,6 +30,19 @@ class Snake:
         else:
             self.body.pop()
 
+    def handle_input(self, event):
+        if event.type != pygame.KEYDOWN:
+            return
+
+        if event.key == pygame.K_UP and self.direction != pygame.Vector2(0, 1):
+            self.direction = pygame.Vector2(0, -1)
+        elif event.key == pygame.K_DOWN and self.direction != pygame.Vector2(0, -1):
+            self.direction = pygame.Vector2(0, 1)
+        elif event.key == pygame.K_LEFT and self.direction != pygame.Vector2(1, 0):
+            self.direction = pygame.Vector2(-1, 0)
+        elif event.key == pygame.K_RIGHT and self.direction != pygame.Vector2(-1, 0):
+            self.direction = pygame.Vector2(1, 0)
+
     def change_direction(self, direction):
         if (direction + self.direction) != pygame.Vector2(0, 0):
             self.direction = direction

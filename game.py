@@ -96,7 +96,7 @@ class SnakeGame:
                 pygame.quit()
                 sys.exit()
 
-            # genrates a speical fruit with chance of 1 to 1000
+            # generates a special fruit with chance of 1 to 1000
             if random.random() < 0.001 and self.special_fruit is None:
                 self.special_fruit = SpecialFruit([GRID_WIDTH, GRID_HEIGHT])
 

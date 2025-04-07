@@ -24,10 +24,9 @@ class Fruit:
         )
 
     def draw(self, surface):
-        rect = pygame.Rect(
-            int(self.position.x * CELL_SIZE),
-            int(self.position.y * CELL_SIZE),
-            CELL_SIZE,
-            CELL_SIZE
+        center = (
+            int(self.position.x * CELL_SIZE + CELL_SIZE // 2),
+            int(self.position.y * CELL_SIZE + CELL_SIZE // 2)
         )
-        pygame.draw.rect(surface, self.color, rect)
+        radius = CELL_SIZE // 2
+        pygame.draw.circle(surface, self.color, center, radius)

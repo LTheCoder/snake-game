@@ -110,8 +110,6 @@ class SnakeGame:
         # winning case. if snake size is board size
         if len(self.snake.body) >= GRID_HEIGHT * GRID_WIDTH:
             self.state = GameStatus.MENU
-            pygame.quit()
-            sys.exit()
 
         # check if snake eat fruit
         if head == self.fruit.position:

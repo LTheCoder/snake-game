@@ -1,8 +1,12 @@
 import os
+import random
 import pygame
 import sys
+from fruit import Fruit
 from snake import Snake
 from dotenv import load_dotenv
+
+from special_fruit import SpecialFruit
 
 
 load_dotenv()
@@ -25,6 +29,9 @@ class SnakeGame:
         self.clock = pygame.time.Clock()
         grid_center = (GRID_WIDTH // 2, GRID_HEIGHT // 2)
         self.snake = Snake(grid_center)
+        self.fruit = Fruit([GRID_WIDTH, GRID_HEIGHT])
+        self.special_fruit = None
+        self.score = 0
 
     def draw_board(self):
         colors = [(170, 215, 81), (162, 209, 73)]
@@ -38,6 +45,7 @@ class SnakeGame:
     def run(self):
         while True:
             now = pygame.time.get_ticks()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -56,10 +64,55 @@ class SnakeGame:
                 self.snake.update()
                 self.snake.last_move_time = now
 
+            head = self.snake.body[0]
+
             interpolation = min(
                 (now - self.snake.last_move_time) / SNAKE_SPEED, 1.0)
 
+            # check if head touches body
+            if head in self.snake.body[1:]:
+                print("Game Over: You ran into yourself!")
+                pygame.quit()
+                sys.exit()
+
+            # winning case. if snake size is board size
+            if len(self.snake.body) >= GRID_HEIGHT * GRID_WIDTH:
+                print("you won!")
+                pygame.quit()
+                sys.exit()
+
+            # check if snake eat fruit
+            if head == self.fruit.position:
+                self.snake.set_grow()
+                self.fruit.generate_new_position()
+                self.score += 1
+
+            # check if snake touches the "wall".
+            if (
+                head.x < 0 or head.y < 0 or
+                head.x >= GRID_WIDTH or head.y >= GRID_HEIGHT
+            ):
+                print("Game Over: Hit the wall!")
+                pygame.quit()
+                sys.exit()
+
+            # generates a special fruit with chance of 1 to 1000
+            if random.random() < 0.001 and self.special_fruit is None:
+                self.special_fruit = SpecialFruit([GRID_WIDTH, GRID_HEIGHT])
+
+            if self.special_fruit:
+                if self.snake.body[0] == self.special_fruit.position:
+                    self.snake.set_grow(segments=3)
+                    self.score += 5
+                    self.special_fruit = None
+                elif self.special_fruit.is_expired():
+                    self.special_fruit = None
+
             self.draw_board()
+            self.fruit.draw(self.window)
+            if self.special_fruit:
+                self.special_fruit.draw(self.window)
             self.snake.draw(self.window, interpolation)
+
             pygame.display.flip()
             self.clock.tick(FRAMERATE)

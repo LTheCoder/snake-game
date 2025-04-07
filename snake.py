@@ -15,12 +15,20 @@ class Snake:
         self.previous_body = list(self.body)
         self.direction = pygame.Vector2(1, 0)
         self.color = (0, 255, 0)
+        self.grow_segments = 0
+
+    def set_grow(self, segments=1):
+        self.grow_segments += segments
 
     def update(self):
         self.previous_body = list(self.body)
         head = self.body[0] + self.direction
         self.body.insert(0, head)
-        self.body.pop()
+
+        if self.grow_segments > 0:
+            self.grow_segments -= 1
+        else:
+            self.body.pop()
 
     def change_direction(self, direction):
         if (direction + self.direction) != pygame.Vector2(0, 0):

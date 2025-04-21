@@ -10,11 +10,13 @@ CELL_SIZE = int(os.getenv("CELL_SIZE", 15))
 # Constants for snake properties
 SNAKE_COLOR = (0, 255, 0)
 
+
 class Snake:
     def __init__(self, position):
         """Initialize the snake with a starting position."""
         if not isinstance(position, (list, tuple)) or len(position) != 2:
-            raise ValueError("Position must be a list or tuple with two elements.")
+            raise ValueError(
+                "Position must be a list or tuple with two elements.")
 
         self.last_move_time = pygame.time.get_ticks()
         self.body = [pygame.Vector2(position)]
@@ -22,6 +24,7 @@ class Snake:
         self.direction = pygame.Vector2(1, 0)
         self.color = SNAKE_COLOR
         self.grow_segments = 0
+        self.is_direction_changed = False
 
     def set_grow(self, segments=1):
         """Increase the number of segments the snake will grow."""
@@ -38,6 +41,8 @@ class Snake:
         else:
             self.body.pop()
 
+        self.is_direction_changed = False
+
     def handle_input(self, event):
         """Handle user input to change the snake's direction."""
         if event.type != pygame.KEYDOWN:
@@ -53,8 +58,9 @@ class Snake:
         elif event.key == pygame.K_RIGHT:
             new_direction = pygame.Vector2(1, 0)
 
-        if new_direction and self.is_valid_direction(new_direction):
+        if new_direction and self.is_valid_direction(new_direction) and not self.is_direction_changed:
             self.direction = new_direction
+            self.is_direction_changed = True
 
     def is_valid_direction(self, new_direction):
         """Check if the new direction is valid (not opposite to the current direction)."""

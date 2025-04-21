@@ -148,7 +148,7 @@ class SnakeGame:
                 self.snake.set_grow(segments=3)
                 self.score += 5
                 self.special_fruit = None
-            elif self.special_fruit.is_expired():
+            elif self.special_fruit.has_expired():
                 self.special_fruit = None
 
         self.draw_board()

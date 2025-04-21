@@ -33,7 +33,6 @@ GAME_OVER_COLOR = (255, 0, 0)
 TITLE_FONT_SIZE = 60
 TEXT_FONT_SIZE = 30
 
-
 class GameStatus(str, Enum):
     PLAYING = "PLAYING"
     GAME_OVER = "GAME_OVER"
@@ -148,6 +147,7 @@ class SnakeGame:
                 self.snake.set_grow(segments=3)
                 self.score += 5
                 self.special_fruit = None
+
             elif self.special_fruit.has_expired():
                 self.special_fruit = None
 
